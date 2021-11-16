@@ -119,6 +119,12 @@ class Main:
             os.system("cls")
             print(mark)
             self.retries = int(input(f'{blue}> {white}Retries (1 = default, 3 max): '))
+            if self.retries == 0:
+                self.retries = 1
+            elif self.retries > 3 or self.retries < 1:
+                retries_old = self.retries
+                self.retries = 1
+                print(f'{red}Unexpected value ({retries_old}, new value {self.retries}')
             os.system("cls")
             self.load_proxies()
             self.start_checking()
