@@ -1,20 +1,14 @@
-# <img alt="window" width="30px" style="bottom:30px;" src="https://i.imgur.com/ZjJoQvZ.png">   <a>TailsChecker</a>
+# <img alt="window" width="30px" src="https://i.imgur.com/ZjJoQvZ.png"> <a style"top">TailsChecker</a>
 ### by Tails Development Team
 
 A tool for checking minecraft accounts (Being Worked)
 
 <br>
 
-<img alt="window" src="">
-<br>
-<img alt="window" src="">
-
-
-<br>
-
-
 Check out the [Github License](https://github.com/nefercarrots/tailschecker/blob/main/LICENSE.md)
 
 ## Contributors
 
-[<img alt="YuuKomoe" src="https://github.com/yuukomoe.png?size=128" width="120px" style="border-radius:12px;">](https://github.com/nefercarrots)
+[<img alt="YuuKomoe" src="https://github.com/yuukomoe.png?size=128" width="120px" style="border-radius:12px;">](https://github.com/YuuKomoe)
+[<img alt="n3k2" src="https://github.com/n3k2.png?size=128" width="120px" style="border-radius:12px;">](https://github.com/n3k2)
+[<img alt="decodethedev" src="https://github.com/decodethedev.png?size=128" width="120px" style="border-radius:12px;">](https://github.com/decodethedev)
