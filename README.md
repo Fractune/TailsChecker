@@ -1,11 +1,10 @@
-# <img alt="window" width="80px" src="https://raw.githubusercontent.com/YuuKomoe/TailsChecker/main/utils/TCIcon.png"> <a /> <a style="top: 20px">TailsChecker</a>
+# <img alt="window" width="80px" src="https://raw.githubusercontent.com/YuuKomoe/TailsChecker/main/utils/TCIcon.png"> <a color="#eb8034" style="top: 20px">TailsChecker</a>
 ### by Tails Development Team
 
 A tool for checking minecraft accounts (Being Worked)
 
+### <a color="#">Features</a>
 ```
-Features:
-
 Multi-threading
 Proxy & Proxyless
 HTTPS, SOCKS4, SOCKS5 Proxies supported (w/ Auth)
