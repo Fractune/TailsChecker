@@ -9,7 +9,7 @@ Features:
 Multi-threading
 Proxy & Proxyless [SOON]
 HTTPS, SOCKS4, SOCKS5 Proxies supported (w/ Auth) [SOON]
-Gets proxies from api link and refreshes link.
+Gets proxies from api link and refreshes link [SOON]
 Checks for Email Access
 ```
 ### [Github License](https://github.com/nefercarrots/tailschecker/blob/main/LICENSE.md)
