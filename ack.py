@@ -84,9 +84,8 @@ class Main:
                     print(f'{green}[Good] {white}{username}:{password}')
                 elif "error" in check.json():
                     print(f'{red}[Bad] {white}{username}:{password}')
-                elif "in" in check.json():
-                    print(f'{yellow}[Rate Limited] {white}{username}:{password}')
                 elif "The request could not be satisfied." in check.content:
+                    print(f'{yellow}[Rate Limited] {white}{username}:{password}')
                     self.proxy_list.remove(proxy)
             
             if "clientToken" in check.text:
@@ -127,79 +126,6 @@ class Main:
             os.system("cls"); ctypes.windll.kernel32.SetConsoleTitleW("Minecraft Account Checker | Error"); 
             print(f'{yellow}ERROR{white} : Please put your combos inside of \'combo.txt\''); time.sleep(10); 
             exit()
-        
-#    def getannounces(self):
-#        try:
-#            announcement = session.get(
-#                'https://raw.githubusercontent.com/ShadowOxygen/OxygenX/master/announcement').text.split("Color: ")
-#            color = announcement[1].lower()
-#            if color == 'red\n':
-#                color = red
-#            elif color == 'white\n':
-#                color = white
-#            elif color == 'blue\n':
-#                color = blue
-#            elif color == 'green\n':
-#                color = green
-#            elif color == 'cyan\n':
-#                color = cyan
-#            elif color == 'magenta\n':
-#                color = magenta
-#            elif color == 'yellow\n':
-#                color = yellow
-#            self.announcement = f"{color}{announcement[0]}"
-#        except:
-#            if SnowChecker.debug:
-#                print(f'{yellow}ERROR {white}while displaying announcement: \n{format_exc(limit=1)}\n')
-#            return
-
-
-#    def start_checker(self):
-#        if OxygenX.threads > len(self.accounts):
-#            OxygenX.threads = int(len(self.accounts))
-#        self.get_announcement()
-#        mainpool = ThreadPool(processes=OxygenX.threads)
-#        clear()
-#        print(t)
-#        print(self.announcement)
-#        self.start_time = time()
-#        Thread(target=self.title).start()
-#        mainpool.imap_unordered(func=self.prep, iterable=self.accounts)
-#        mainpool.close()
-#        mainpool.join()
-#        symbo = f'[{Fore.GREEN}>{white}]'
-#        cyanz = f'[{Fore.CYAN}>{white}]'
-#        result = f'{white}\n\n[{Fore.YELLOW}>{white}] Results: \n\n' \
-#            f'[{green}+{white}] Hits: {Counter.hits}\n' \
-#            f'[{red}-{white}] Bad: {Counter.bad}{white}\n\n' \
-#            f'[{green}>{white}] NFA: {Counter.nfa}\n' \
-#            f'{cyanz} SFA: {Counter.sfa}\n' \
-#            f'[{blue}>{white}] MFA: {Counter.mfa}\n' \
-#            f'[{magenta}>{white}] Unmigrated: {Counter.unfa}\n\n' \
-#            f'{symbo} Mojang capes: {Counter.mojang}\n' \
-#            f'{symbo} Optifine capes: {Counter.optifine}\n' \
-#            f'{cyanz} Speed: {cyan}{round(Counter.checked / (time() - self.start_time), 2)} accounts/s\n' \
-#            f'{white}{cyanz} Total time checking: {cyan}{self.now_time()}\n\n' \
-#            f'[{magenta}x{white}] Finish checking..\n'
-#        self.stop_time = False
-#        print(result)
-
-
-# def updatechecks():
-#    try:
-#        gitversion = session.get(
-#            "https://github.com/").text
-#        if f'{version}\n' != gitversion:
-#            print(t)
-#            print(f"{red}Your program is outdated.")
-#            print(f"Your version: {version}\n")
-#            print(f'Latest version: {gitversion}Get latest version in the link below')
-#            print(f"https://github.com/ \n Starting in 5 seconds...{cyan}")
-#            sleep(5)
-#            clear()
-#    except:
-#        if SnowChecker.debug:
-#            print(f"{red} Error while checking for updates: \n{format_exc(limit=1)}\n")
 
 Main().main()
 
