@@ -1,5 +1,5 @@
 <img alt="window" src=""> # TailsChecker
-### by tails Development Team
+### by Tails Development Team
 
 A tool for checking minecraft accounts (Being Worked)
 
