@@ -3,7 +3,7 @@
 
 A tool for checking minecraft accounts (Being Worked)
 
-### <a color="#">Features</a>
+### <a color="#FFF">Features</a>
 ```
 Multi-threading
 Proxy & Proxyless
