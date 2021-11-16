@@ -7,7 +7,7 @@ A tool for checking minecraft accounts (Being Worked)
 Features:
 
 Multi-threading
-Proxy & Proxyless [SOON]
+Proxy & Proxyless
 HTTPS, SOCKS4, SOCKS5 Proxies supported (w/ Auth) [SOON]
 Gets proxies from api link and refreshes link [SOON]
 Checks for Email Access
