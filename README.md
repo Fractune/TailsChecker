@@ -1,4 +1,4 @@
-# <img alt="window" width="60px" src="https://i.imgur.com/ZjJoQvZ.png"> <a style="margin-bottom:40px;">TailsChecker</a>
+# <img alt="window" width="60px" style="bottom:30px;" src="https://i.imgur.com/ZjJoQvZ.png"> <a>TailsChecker</a>
 ### by Tails Development Team
 
 A tool for checking minecraft accounts (Being Worked)
