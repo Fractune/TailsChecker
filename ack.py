@@ -102,7 +102,7 @@ class Main:
     def start_checking(self):
         def thread_starter():
             self.check_account(self.usernames[self.counter], self.passwords[self.counter])
-
+            
         while True:
             if threading.active_count() <= self.threads:
                 threading.Thread(target = thread_starter).start()
@@ -122,9 +122,10 @@ class Main:
             self.retries = int(input(f'{red}> {white}Retries (0 = default, 3 max): '))
             if self.retries == 0:
                 self.retries = 1
-            elif self.retries > 3 or self.retries < 0:
-                print(f'{red}Retry value exceeded expectations ({self.retries}), value set to 0.')
+            elif self.retries > 3 or self.retries < 1:
+                retries_old = self.retries
                 self.retries = 1
+                print(f'{red}Unexpected value ({retries_old}, new value {self.retries}')
                 
             os.system("cls")
             self.load_proxies()
