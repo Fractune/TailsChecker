@@ -11,6 +11,7 @@ HTTPS, SOCKS4, SOCKS5 Proxies supported (w/ Auth)
 
 [SOON]
 Gets proxies from api link and refreshes link
+Scrap for proxies from numerous websites
 Checks for Email Access
 ```
 ### [Github License](https://github.com/nefercarrots/tailschecker/blob/main/LICENSE.md)
