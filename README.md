@@ -16,7 +16,7 @@ Checks for Email Access
 Detailed information on every and each account
 ```
 ### [Github License](https://github.com/nefercarrots/tailschecker/blob/main/LICENSE.md)
-
+<br>
 Our discord [server invitation](https://discord.gg/bYgXQp9Cv8)
 
 ## Contributors
