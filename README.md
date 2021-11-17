@@ -5,7 +5,7 @@ A tool for checking minecraft accounts (Being Worked)
 
 #### Information
 Make sure you create a file named "combo.txt" which contains the emails you wanna check
-at the same time a proxy list named "proxies.txt" which countains your proxies w/ pass (or without)
+at the same time a proxy list named "proxies.txt" which countains your proxies w/ credentials (or without)
 
 • This will be fixed soon & more added later.
 
