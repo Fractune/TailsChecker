@@ -41,13 +41,23 @@ class Main:
                     ext = e.readlines()
                     for line in ext:
                         try:
-                            proxyline = line.split()[0].replace('\n', '')
+                            proxyline = line.split()[0].replace("\n", "")
                             self.proxy_list.append(proxyline)
                         except:
                             pass
                 print(f"> Loaded [{len(self.proxy_list)}] proxies lines..\n")
             except Exception:
-                print(f'\nproxy error')
+                print(f"\nproxy error")
+
+        else:
+            print(f"{yellow}ERROR {white}: No proxy file found, please select your proxies.")
+            proxies = open(fileopenbox(title="Load Proxies List", default="*.txt"), "r", encoding="UTF-8", errors="ignore").readlines()
+            for line in proxies:
+                try:
+                    proxyline = line.split()[0].replace("\n", "")
+                    self.proxy_list.append(proxyline)
+                except:
+                    pass
 
     def load_combos(self):
         if os.path.exists("combo.txt"):
@@ -61,15 +71,15 @@ class Main:
         print(mark)
         os.system("cls"); ctypes.windll.kernel32.SetConsoleTitleW("Minecraft Account Checker | Error"); 
         print(mark)
-        print(f'> {yellow}ERROR{white} : No combo file found: \'combo.txt\'');
-        combo = loader = open(fileopenbox(title="Load Combo List", default="*.txt"), 'r', encoding="utf8", errors='ignore').read().splitlines()
+        print(f"> {yellow}ERROR{white} : No combo file found: \'combo.txt\''")
+        combo = open(fileopenbox(title="Load Combo List", default="*.txt"), "r", encoding="UTF-8", errors="ignore").read().splitlines()
         for line in combo:
             self.usernames.append(line.split(":")[0])
             self.passwords.append(line.split(":")[-1])
         exit()
     
     def title(self):
-        ctypes.windll.kernel32.SetConsoleTitleW("Minecraft Account Checker | Valid: {} | Invalid: {} | Checked: {}/{} | Remaining: {}".format(self.valid, self.invalid, (self.valid + self.invalid), len(self.usernames), (len(self.usernames) - (self.valid + self.invalid))))
+        ctypes.windll.kernel32.SetConsoleTitleW("TC | Valid: {} | Invalid: {} | Checked: {}/{} | Remaining: {}".format(self.valid, self.invalid, (self.valid + self.invalid), len(self.usernames), (len(self.usernames) - (self.valid + self.invalid))))
        
     def session(self):
         session = requests.Session()
