@@ -19,7 +19,7 @@ class Colors:
     magenta = Fore.LIGHTMAGENTA_EX
 Colors()
 
-version = "0.1.1"
+version = "v0.10.2"
 mark = f'{red}\n' + requests.get("https://pastebin.com/raw/uxJtrC3n").text + f"\n\n{red}  TailsChecker-{version} »» Created by Tails Team\n"
 
 class Main:
