@@ -19,7 +19,7 @@ class Colors:
     magenta = Fore.LIGHTMAGENTA_EX
 Colors()
 
-version = "0.2"
+version = "0.1.1"
 mark = f'{red}\n' + requests.get("https://pastebin.com/raw/uxJtrC3n").text + f"\n\n{red}  TailsChecker-{version} »» Created by Tails Team\n"
 
 class Main:
@@ -80,6 +80,7 @@ class Main:
         try:
             session = self.session()
             proxy = random.choice(self.proxy_list)
+            pxhidden = f'{proxy.split(":")[0]}:{proxy.split(":")[1]}:{red}**********{white}:{red}**********'
             json = {"agent": {"name": "Minecraft", "version": "1"}, "clientToken": None, "password": password, "requestUser": "true", "username": username}
             check = session.post("https://authserver.mojang.com/authenticate", json = json, headers = {"User-Agent": "MinecraftLauncher/1.0"}, proxies = dict(
                 http="socks5://" + proxy.split(":")[2] + ":" + proxy.split(":")[3] + "@" + proxy.split(":")[0] + ":1080",
@@ -110,7 +111,11 @@ class Main:
         except Exception as err:
             if "No connection could be made because the target machine actively refused it" in str(err):
                 self.proxy_list.remove(proxy)
-                print(f'{yellow}[Invalid Proxy] removing {white}=> {proxy}')
+                # print(f'{yellow}[Invalid Proxy] removing {white}=> {proxy}')
+                if self.hide:
+                    print(f'{yellow}[Invalid Proxy] removing {white}=> {pxhidden}')
+                else:
+                    print(f'{yellow}[Invalid Proxy] removing {white}=> {proxy}')
 
     def start_checking(self):
         def thread_starter():
@@ -164,5 +169,5 @@ class Main:
             os.system("cls"); ctypes.windll.kernel32.SetConsoleTitleW("Minecraft Account Checker | Error"); 
             print(f'\n{yellow}ERROR{white} : Please put your combos inside of \'combo.txt\''); time.sleep(10); 
             exit()
-            
+
 Main().main()
