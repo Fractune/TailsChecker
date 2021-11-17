@@ -109,7 +109,7 @@ class Main:
                 proxy_send = {"http": f"socks4://{proxy}", "https": f"socks4://{proxy}"}
             elif self.proxy_type = 3:
                 proxy_send = {"http": "socks5://" + proxy.split(":")[2] + ":" + proxy.split(":")[3] + "@" + proxy.split(":")[0] + ":1080", "https": "socks5://" + proxy.split(":")[2] + ":" + proxy.split(":")[3] + "@" + proxy.split(":")[0] + ":1080"}
-            pxhidden = f'{proxy.split(":")[0]}:{proxy.split(":")[1]}:{red}**********{white}:{red}**********'
+                pxhidden = f'{proxy.split(":")[0]}:{proxy.split(":")[1]}:{red}**********{white}:{red}**********'
             json = {"agent": {"name": "Minecraft", "version": "1"}, "clientToken": None, "password": password, "requestUser": "true", "username": username}
             check = session.post("https://authserver.mojang.com/authenticate", json = json, headers = {"User-Agent": "MinecraftLauncher/1.0"}, proxies = proxy_send)
 
