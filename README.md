@@ -7,7 +7,7 @@ A tool for checking minecraft accounts (Being Worked)
 Make sure you create a file named "combo.txt" which contains the emails you wanna check
 at the same time a proxy list named "proxies.txt" which countains your proxies w/ credentials (or without)
 
-• will be fixed later..
+• This will be fixed soon & more added later.
 
 ### <a color="#FFF">Features</a>
 ```
@@ -23,7 +23,7 @@ Detailed information on every and each account
 ```
 Our discord [server invitation](https://discord.gg/bYgXQp9Cv8)
 
-### [Github License](https://github.com/YuuKomoe/TailsChecker/blob/main/LICENSE)
+### [Github License](https://github.com/nefercarrots/tailschecker/blob/main/LICENSE.md)
 
 ## Contributors
 [<img alt="YuuKomoe" src="https://github.com/yuukomoe.png?size=128" width="96px" style="border-radius:20px">](https://github.com/YuuKomoe)
