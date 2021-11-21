@@ -167,7 +167,7 @@ class Main:
                         if self.hide_pwds == True:
                             print(f'{green}[Good] {white}{username}:{red}********')
                         else:
-                            print(f'{red}[Bad] {white}{username}:{password}')
+                            print(f'{green}[Good] {white}{username}:{password}')
                     elif "error" in check.json():
                         if self.hide_pwds == True:
                             print(f'{red}[Bad] {white}{username}:{red}********')
