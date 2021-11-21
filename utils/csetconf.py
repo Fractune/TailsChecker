@@ -1,5 +1,5 @@
 class Config:
-    global auto_start, check_updates, threads, retries, mail_access, hide_passwords, print_bad, save_bad, proxy_type, proxy_dupe, proxy_bad, debugging, dev_mode
+    global auto_start, check_updates, threads, retries, mail_access, hide_passwords, print_bad, save_bad, proxy_protocol, proxy_dupe, proxy_bad, debugging, dev_mode
     f = str(open('./config.conf', 'r', encoding="UTF-8", errors="ignore").readlines()).strip()
 
     auto_start = f.split("auto_start: ")[1].split("'")[0][:-2]
@@ -11,7 +11,7 @@ class Config:
     print_bad = f.split("print_bad: ")[1].split("'")[0][:-2]
     save_bad = f.split("save_bad: ")[1].split("'")[0][:-2]
     proxy = f.split("proxy: ")[1].split("'")[0][:-2]
-    proxy_type = f.split("proxy_type: ")[1].split("'")[0]
+    proxy_protocol = f.split("proxy_protocol: ")[1].split("'")[0][:-2]
     proxy_dupe = f.split("proxy_duplicates: ")[1].split("'")[0][:-2]
     proxy_bad = f.split("proxy_bad_remove: ")[1].split("'")[0][:-2]
     debugging = f.split("debugging: ")[1].split("'")[0][:-2]
