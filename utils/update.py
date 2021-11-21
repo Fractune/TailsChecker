@@ -12,13 +12,4 @@ with open('./version', 'w') as file:
 with open('../tails.py', 'w') as file:
     file.write(file)
 
-# os.rename('../tails.py','old_tails.py')
-# os.rename('../tails_new','tails.py')
-
-# if os.path.isfile('../old_tails.py'):
-#     os.remove('../old_tails.py')
-
-# with open ('../config.tails', 'w') as file:
-#    config.write(file)
-
 os.system('python ../tails.py')
