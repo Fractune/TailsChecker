@@ -83,7 +83,9 @@ class Main:
 
                 os.system("cls")
                 print(mark)
-            except Exception:
+            except Exception as err:
+                if self.debugging == "true":
+                        print("error [1]: " + str(err))
                 print(f"\nproxy error")
 
         else:
@@ -95,7 +97,9 @@ class Main:
                 try:
                     proxyline = line.split()[0].replace("\n", "")
                     self.proxy_list.append(proxyline)
-                except:
+                except Exception as err:
+                    if self.debugging == "true":
+                        print("error [2]: " + str(err))
                     pass
 
             print(f"{red}> {white}Loaded [{len(self.proxy_list)}] proxies lines..\n")
@@ -187,6 +191,8 @@ class Main:
                         self.invalid += 1
                         self.title()
                 except Exception as err:
+                    if self.debugging == "true":
+                        print("error [3]: " + str(err))
                     if "No connection could be made because the target machine actively refused it" in str(err):
                         self.proxy_list.remove(proxy)
                         proxyhid = f'{proxy.split(":")[0]}:{proxy.split(":")[1]}:{red}**********{white}:{red}**********'
@@ -195,7 +201,9 @@ class Main:
                             print(f'{red}[Invalid Proxy] {yellow}removing {white}=> {proxyhid}')
                         else:
                             print(f'{yellow}[Invalid Proxy] removing {white}=> {proxy}')
-        except: pass
+        except Exception as err:
+            if self.debugging == "true":
+                print("error [4]: " + str(err))
 
     def start_checking(self):
         def thread_starter():
@@ -256,7 +264,7 @@ class Main:
                 time.sleep(3)
                 exit()
             else:
-                return
+                os.system("cls")
         else:
             print(f'{green}[OK]{white} You are running on the latest version.')
             time.sleep(1)
