@@ -23,7 +23,7 @@ Detailed information on every and each account
 ```
 Our discord [server invitation](https://discord.gg/bYgXQp9Cv8)
 
-### [Github License](https://github.com/nefercarrots/tailschecker/blob/main/LICENSE.md)
+### [Github License](https://github.com/YuuKomoe/tailschecker/blob/main/LICENSE)
 
 ## Contributors
 [<img alt="YuuKomoe" src="https://github.com/yuukomoe.png?size=128" width="96px" style="border-radius:20px">](https://github.com/YuuKomoe)
