@@ -1,24 +1,10 @@
 # <img alt="window" width="40px" src="https://raw.githubusercontent.com/YuuKomoe/TailsChecker/main/utils/TCIcon.png"> TailsChecker
-### by Tails Development Team
+By Tails Development Team / A tool for checking minecraft accounts
 
-A tool for checking minecraft accounts
-
-#### [Beta] 
+## [Beta] 
 Experimental pre-released files, we suggest you use the latest one from the main branch.
 [•] This will eventually come with issues if you attempt to use this source.
 
-### <a color="#FFF">Features</a>
-```
-Multi-threading
-Proxy & Proxyless
-HTTPS, SOCKS4, SOCKS5 Proxies supported (w/ Auth)
-Checks for Email Access
-
-[SOON]
-Gets proxies from api link and refreshes link
-Scrap for proxies from numerous websites
-Detailed information on every and each account
-```
 Our discord [server invitation](https://discord.gg/bYgXQp9Cv8)
 
 ### [Github License](https://github.com/nefercarrots/tailschecker/blob/main/LICENSE.md)
