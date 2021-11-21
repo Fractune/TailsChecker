@@ -3,6 +3,7 @@ By Tails Development Team / A tool for checking minecraft accounts
 
 # [Beta] 
 `Experimental pre-released files, we suggest you use the latest one from the main branch.`
+
 `[•] This will eventually come with issues if you attempt to use this source.`
 
 Our discord [server invitation](https://discord.gg/bYgXQp9Cv8)
