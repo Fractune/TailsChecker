@@ -1,5 +1,4 @@
 from colorama import Fore, init, Style
-from colorama import Fore, init, Style
 
 class Colors:
     global white, yellow, red, green, cyan, blue, magenta
