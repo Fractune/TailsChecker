@@ -1,24 +1,22 @@
 # <img alt="window" width="40px" src="https://raw.githubusercontent.com/YuuKomoe/TailsChecker/main/utils/TCIcon.png"> TailsChecker
 ### by Tails Development Team
 
-A tool for checking minecraft accounts (Being Worked)
+A tool for checking minecraft accounts
 
-#### Information
-Make sure you create a file named "combo.txt" which contains the emails you wanna check
-at the same time a proxy list named "proxies.txt" which countains your proxies w/ credentials (or without)
-
-• This will be fixed soon & more added later.
+#### [Beta] 
+Experimental pre-released files, we suggest you use the latest one from the main branch.
+[•] This will eventually come with issues if you attempt to use this source.
 
 ### <a color="#FFF">Features</a>
 ```
 Multi-threading
 Proxy & Proxyless
 HTTPS, SOCKS4, SOCKS5 Proxies supported (w/ Auth)
+Checks for Email Access
 
 [SOON]
 Gets proxies from api link and refreshes link
 Scrap for proxies from numerous websites
-Checks for Email Access
 Detailed information on every and each account
 ```
 Our discord [server invitation](https://discord.gg/bYgXQp9Cv8)
