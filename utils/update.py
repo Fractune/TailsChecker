@@ -3,7 +3,7 @@ import os, configparser,requests
 config = configparser.ConfigParser()
 config.read('../config.conf')
 
-githubVersion = requests.get("https://raw.githubusercontent.com/YuuKomoe/TailsChecker/beta/utils/version")
+githubVersion = requests.get("https://raw.githubusercontent.com/HoneycubeYay/TailsChecker/beta/utils/version")
 version = githubVersion.text.replace("\n","")
 
 with open('./version', 'w') as file:
