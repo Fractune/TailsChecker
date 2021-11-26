@@ -1,11 +1,17 @@
 # <img alt="window" width="40px" src="https://raw.githubusercontent.com/Kitsunake/TailsChecker/main/utils/TCIcon.png"> TailsChecker
-### by Tails Development Team
+### A tool for checking minecraft accounts => by Tails Development Team
 
-A tool for checking minecraft accounts (Being Worked)
+### Known bugs / recent logs,
+`# The tool might be updated at a later date as decode currently working on a full proxy support.
+
+> The tool will NOT send a message after completing the check
+> The tool will NOT check every single account, 
+|> Especially when there's a proxy giving almost weird errors, were trying to figure that out
+|> After a proxy has been removed, it continues to the next acc from the list`
 
 • Combos/Proxies list selection fixed, you can now select using explorer from anywhere if the files are missing.
 
-### <a color="#FFF">Features</a>
+### Features
 ```
 Multi-threading
 Proxy & Proxyless
@@ -17,7 +23,9 @@ Gets proxies from api link and refreshes link
 Checks for Email Access
 Detailed information on every and each account
 ```
-Don't have a discord yet, maybe in the future we'll make one.
+### Notices(?) 
+- If you encounter any single errors -> Create a new issue reporting the issue to us (w/ enabling debugging mode enabled, ofc)
+- If you seek for a way to contact us, then I suggest you add my discord => Kitsunake#0001 (We've got no reason to create a server that's going to be half dead)
 
 ### [Github License](https://github.com/Kitsunake/tailschecker/blob/main/LICENSE)
 
