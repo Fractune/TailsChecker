@@ -1,7 +1,7 @@
 # <img alt="window" width="40px" src="https://raw.githubusercontent.com/Kitsunake/TailsChecker/main/utils/TCIcon.png"> TailsChecker
 ### A tool for checking minecraft accounts => by Tails Development Team
 
-### Known bugs / recent logs,
+# Known bugs / recent logs,
 `
 # The tool might be updated at a later date as decode currently working on a full proxy support.
 
