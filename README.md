@@ -1,15 +1,15 @@
 # <img alt="window" width="40px" src="https://raw.githubusercontent.com/Kitsunake/TailsChecker/main/utils/TCIcon.png"> TailsChecker
 ### A tool for checking minecraft accounts => by Tails Development Team
 
-# Known bugs / recent logs,
-`
+### Known bugs / recent logs,
+``
 # The tool might be updated at a later date as decode currently working on a full proxy support.
 
 > The tool will NOT send a message after completing the check
 > The tool will NOT check every single account, 
 |> Especially when there's a proxy giving almost weird errors, were trying to figure that out
 |> After a proxy has been removed, it continues to the next acc from the list
-`
+``
 
 • Combos/Proxies list selection fixed, you can now select using explorer from anywhere if the files are missing.
 
