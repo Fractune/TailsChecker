@@ -25,7 +25,7 @@ Checks for Email Access
 Detailed information on every and each account
 ```
 ### Notices(?) 
-- If you encounter any single errors -> Create a new issue reporting the issue to us (w/ enabling debugging mode enabled, ofc)
+- If you encounter any single errors -> Create a new issue reporting the issue to us (Min. a SS with error & an explanation, must debug mode enabled unless it occurs when it's off)
 - If you seek for a way to contact us, then I suggest you add my discord => Kitsunake#0001 (We've got no reason to create a server that's going to be half dead)
 
 ### [Github License](https://github.com/Kitsunake/tailschecker/blob/main/LICENSE)
