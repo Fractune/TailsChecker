@@ -240,15 +240,15 @@ class Main:
             sys.stdout.write('\b')
         print()
 
-        r = requests.get("https://raw.githubusercontent.com/HoneycubeYay/TailsChecker/main/tails.py", allow_redirects=True)
-        githubVersion = requests.get("https://raw.githubusercontent.com/HoneycubeYay/TailsChecker/main/utils/version")
+        r = requests.get("https://raw.githubusercontent.com/Kitsunake/TailsChecker/main/tails.py", allow_redirects=True)
+        githubVersion = requests.get("https://raw.githubusercontent.com/Kitsunake/TailsChecker/main/utils/version")
         if Misc.version not in githubVersion.text:
             print(f'{cyan}[UPDATE]{white}: An update is available!')
             userInput = input(f'{cyan}[INFO]{white} Do you want to continue? (y/n)\n> ');
             if userInput.lower() == 'y':
                 os.system("cls")
                 print(mark)
-                print(f'{cyan}[INFO]{white} Downloading TailsChecker '+githubVersion.text.replace("\n","")+' from https://github.com/HoneycubeYay/TailsChecker/blob/main/tails.py...', end = "")
+                print(f'{cyan}[INFO]{white} Downloading TailsChecker '+githubVersion.text.replace("\n","")+' from https://github.com/Kitsunake/TailsChecker/blob/main/tails.py...', end = "")
 
                 spinner = spinning_cursor()
                 for _ in range(10):
