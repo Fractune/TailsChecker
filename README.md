@@ -32,5 +32,5 @@ Detailed information on every and each account
 
 ## Contributors
 [<img alt="Kitsunake" src="https://github.com/kitsunake.png?size=128" width="96px" style="border-radius:20px">](https://github.com/Kitsunake)
-[<img alt="n3k2" src="https://github.com/n3k2.png?size=128" width="96px" style="border-radius:20px;">](https://github.com/n3k2)
+[<img alt="n3k2" src="https://github.com/neko-ww.png?size=128" width="96px" style="border-radius:20px;">](https://github.com/neko-ww)
 [<img alt="decodethedev" src="https://github.com/decodethedev.png?size=128" width="96px" style="border-radius:20px;">](https://github.com/decodethedev)
