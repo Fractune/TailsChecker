@@ -1,4 +1,4 @@
-As of 2/4/2022 -- This project has been closed due to an argument between devs, unmotivation to continue this project thus, feel free to use/modify this source to your wanting, though we'll part-take credits for the original code.
+As of 2/4/2022 -- This project has been closed due to an argument between devs, unmotivation to continue this project thus, feel free to use/modify this source to your wanting, though we'll part-take credits for the original code. Archiving this repo, see ya~~
 
 # <img alt="window" width="40px" src="https://raw.githubusercontent.com/Kitsunake/TailsChecker/main/utils/TCIcon.png"> TailsChecker
 ### A tool for checking minecraft accounts => by Tails Development Team
